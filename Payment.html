@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Futuristic Payment Page</title>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: white;
+            text-align: center;
+            padding-top: 120px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.1);
+            padding: 30px;
+            width: 350px;
+            margin: auto;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0px 0px 15px rgba(255,255,255,0.3);
+        }
+
+        input {
+            width: 90%;
+            padding: 12px;
+            margin: 10px 0;
+            border-radius: 10px;
+            border: none;
+            font-size: 16px;
+        }
+
+        button {
+            background: #00e6b8;
+            border: none;
+            padding: 14px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 10px;
+            font-weight: bold;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #00b389;
+        }
+    </style>
+
+</head>
+
+<body>
+
+    <div class="card">
+        <h2>Complete Your Payment</h2>
+
+        <input type="text" id="name" placeholder="Enter Your Name" />
+        <input type="text" id="number" placeholder="Enter Mobile Number" />
+
+        <button id="payBtn">Pay ₹500</button>
+    </div>
+
+    <script>
+        document.getElementById("payBtn").onclick = async function () {
+
+            let userName = document.getElementById("name").value;
+            let userNumber = document.getElementById("number").value;
+
+            if (userName.trim() === "" || userNumber.trim() === "") {
+                alert("Please enter your name and mobile number.");
+                return;
+            }
+
+            const response = await fetch("/api/payment/create-order", { method: "POST" });
+            const data = await response.json();
+
+            const options = {
+                "key": data.key,
+                "amount": data.amount,
+                "currency": "INR",
+                "name": userName,
+                "description": "Payment by " + userName,
+                "order_id": data.orderId,
+
+                "prefill": {
+                    "name": userName,
+                    "contact": userNumber
+                },
+
+                "handler": function (response) {
+                    alert("Payment Successful!");
+                    window.location.href = "success.html";   // REDIRECT HERE
+                }
+            };
+
+            const rzp = new Razorpay(options);
+            rzp.open();
+        };
+    </script>
+
+</body>
+</html>

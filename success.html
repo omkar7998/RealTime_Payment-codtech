@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Payment Success</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, #1c1d3b, #0a122a);
+            font-family: 'Poppins', sans-serif;
+            color: white;
+        }
+
+        .box {
+            text-align: center;
+            padding: 40px;
+            border-radius: 15px;
+            background: rgba(255,255,255,0.1);
+            backdrop-filter: blur(12px);
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
+            width: 400px;
+        }
+
+        .box h1 {
+            font-size: 32px;
+            margin-bottom: 15px;
+            color: #4cff4c;
+        }
+
+        .box p {
+            font-size: 18px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            background: #4c8bf5;
+            color: white;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        button:hover {
+            background: #205df4;
+        }
+    </style>
+
+</head>
+<body>
+
+<div class="box">
+    <h1>Payment Successful 🎉</h1>
+    <p>Your payment has been completed successfully.</p>
+    <button onclick="window.location.href='payment.html'">Make Another Payment</button>
+</div>
+
+</body>
+</html>
